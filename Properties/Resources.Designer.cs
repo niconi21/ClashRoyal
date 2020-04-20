@@ -73,9 +73,29 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bebe_Dragon {
+            get {
+                object obj = ResourceManager.GetObject("Bebe Dragon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bebe_dragon___carta {
             get {
                 object obj = ResourceManager.GetObject("bebe-dragon - carta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bruja {
+            get {
+                object obj = ResourceManager.GetObject("Bruja", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,6 +173,16 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Esbirros {
+            get {
+                object obj = ResourceManager.GetObject("Esbirros", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap esbirros__carta {
             get {
                 object obj = ResourceManager.GetObject("esbirros- carta", resourceCulture);
@@ -203,9 +233,29 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Mago {
+            get {
+                object obj = ResourceManager.GetObject("Mago", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mago___carta {
             get {
                 object obj = ResourceManager.GetObject("mago - carta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Mosquetera {
+            get {
+                object obj = ResourceManager.GetObject("Mosquetera", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

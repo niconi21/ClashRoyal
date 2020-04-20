@@ -81,6 +81,12 @@
     <Compile Include="src\views\components\Cartas-component.Designer.cs">
       <DependentUpon>Cartas-component.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\views\components\personaje-component.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\views\components\personaje-component.Designer.cs">
+      <DependentUpon>personaje-component.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\views\options\Creditos_component.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\views\components\Cartas-component.resx">
       <DependentUpon>Cartas-component.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\views\components\personaje-component.resx">
+      <DependentUpon>personaje-component.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\views\options\Creditos_component.resx">
       <DependentUpon>Creditos_component.cs</DependentUpon>
@@ -274,6 +283,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Mosquetera - carta.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bebe Dragon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bruja.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Esbirros.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mago.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mosquetera.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

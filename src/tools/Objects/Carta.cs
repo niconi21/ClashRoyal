@@ -11,7 +11,7 @@ namespace ClashRoyal.src.tools.Objects
     {
         public String nombre { get; set; }
         public Image imagen { get; set; }
+        public Image personaje { get; set; }
         public int danio { get; set; }
-        
     }
 }
