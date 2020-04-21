@@ -17,8 +17,16 @@ namespace ClashRoyal.src.views.pages
     {
         private Jugador _jugador;
         private Thread _hilo_personajeJugador;
+        private Thread _hilo_defensaOponenteTorre1;
+        private Thread _hilo_defensaOponenteTorre2;
+        private Thread _hilo_defensaOponenteRey;
+        private Thread _hilo_personajeOponente;
+        private Thread _hilo_defensaJugadorTorre1;
+        private Thread _hilo_defensaJugadorTorre2;
+        private Thread _hilo_defensaJugadorRey;
 
         private delegate void del(Control c, int x, int y);
+
 
         private Carta _carta;
         public Juego(Jugador jugador)
@@ -87,6 +95,21 @@ namespace ClashRoyal.src.views.pages
             }
 
         }
+        private void del_quitarVidaPersonaje(Control c, int x, int y = 0)
+        {
+            if (InvokeRequired)
+            {
+                del quitar = new del(del_quitarVidaPersonaje);
+                Object[] parametros = new Object[] { c, x, y };
+                Invoke(quitar, parametros);
+            }
+            else
+            {
+                personaje_component personaje = c as personaje_component;
+                personaje.retarVida(x);
+            }
+
+        }
         
         void cartasclick_presionado(object sender, MouseEventArgs e)
         {
@@ -110,7 +133,6 @@ namespace ClashRoyal.src.views.pages
             }
             this._carta = null;
         }
-
         private void moverPersonajeJugador(object sender)
         {
             personaje_component personaje = sender as personaje_component;
@@ -183,6 +205,9 @@ namespace ClashRoyal.src.views.pages
                 bool vive = true;
                 while (vida_torre1Oponente.Value > 0)//aqui empieza a atacar
                 {
+                    _hilo_defensaOponenteTorre1 = new Thread(defensaOponenteTorre1);
+                    _hilo_defensaOponenteTorre1.Start(personaje);
+                    
                     if (personaje.Vida > 0)
                     {
                         PictureBox ataque = new PictureBox();
@@ -223,6 +248,8 @@ namespace ClashRoyal.src.views.pages
                     {
                         if (personaje.Vida > 0)
                         {
+                            _hilo_defensaOponenteRey = new Thread(defensaReyOponente);
+                            _hilo_defensaOponenteRey.Start(personaje);
                             PictureBox ataque = new PictureBox();
                             ataque.BackColor = Color.Blue;
                             ataque.Location = new Point(personaje.Location.X + (personaje.Size.Width / 2), personaje.Location.Y - 15);
@@ -317,6 +344,8 @@ namespace ClashRoyal.src.views.pages
                 bool vive = true;
                 while (vida_torre2Oponente.Value > 0)//aqui empieza a atacar
                 {
+                    _hilo_defensaOponenteTorre2 = new Thread(defensaOponenteTorre2);
+                    _hilo_defensaOponenteTorre2.Start(personaje);
                     if (personaje.Vida > 0)
                     {
                         PictureBox ataque = new PictureBox();
@@ -355,6 +384,8 @@ namespace ClashRoyal.src.views.pages
                     }
                     while (vida_reyOponente.Value > 0)//aqui empieza a atacar
                     {
+                        _hilo_defensaOponenteRey = new Thread(defensaReyOponente);
+                        _hilo_defensaOponenteRey.Start(personaje);
                         if (personaje.Vida > 0)
                         {
                             PictureBox ataque = new PictureBox();
@@ -378,13 +409,94 @@ namespace ClashRoyal.src.views.pages
                         }
                     }
                 }
+                panel_torre1Oponente.FindForm();
 
             }
         }
-
-
-        
-      
+        private void defensaOponenteTorre2(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            var ubicacion = panel_torre2Oponente.Location;
+            var tamanio = panel_torre2Oponente.Size;
+            while (personaje.Vida > 0 || vida_torre2Oponente.Value > 0)
+            {
+                PictureBox ataque = new PictureBox();
+                ataque.BackColor = Color.Red;
+                ataque.Location = new Point(ubicacion.X + tamanio.Width / 2, ubicacion.Y + tamanio.Height - 50);
+                ataque.Size = new Size(10, 15);
+                del_crear(ataque);
+                while (!personaje.Bounds.Contains(ataque.Location))
+                {
+                    del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
+                    Thread.Sleep(100);
+                }
+                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_borrar(ataque);
+                Thread.Sleep(2000);
+                if (personaje.Vida == 0)
+                {
+                    del_borrar(personaje);
+                    del_borrar(ataque);
+                    break;
+                }
+            }
+        }
+        private void defensaReyOponente(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            var ubicacion = panel_reyOponente.Location;
+            var tamanio = panel_reyOponente.Size;
+            while (personaje.Vida > 0 || vida_torre1Oponente.Value > 0)
+            {
+                PictureBox ataque = new PictureBox();
+                ataque.BackColor = Color.Red;
+                ataque.Location = new Point(personaje.Location.X + personaje.Width / 2, ubicacion.Y + tamanio.Height - 50);
+                ataque.Size = new Size(10, 15);
+                del_crear(ataque);
+                while (!personaje.Bounds.Contains(ataque.Location))
+                {
+                    del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
+                    Thread.Sleep(100);
+                }
+                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_borrar(ataque);
+                Thread.Sleep(1000);
+                if (personaje.Vida == 0)
+                {
+                    del_borrar(personaje);
+                    del_borrar(ataque);
+                    break;
+                }
+            }
+        }
+        private void defensaOponenteTorre1(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            var ubicacion = panel_torre1Oponente.Location;
+            var tamanio = panel_torre1Oponente.Size;
+            while (personaje.Vida > 0 || vida_torre1Oponente.Value > 0)
+            {
+                PictureBox ataque = new PictureBox();
+                ataque.BackColor = Color.Red;
+                ataque.Location = new Point(ubicacion.X + tamanio.Width / 2, ubicacion.Y + tamanio.Height - 50);
+                ataque.Size = new Size(10, 15);
+                del_crear(ataque);
+                while (!personaje.Bounds.Contains(ataque.Location))
+                {
+                    del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
+                    Thread.Sleep(100);
+                }
+                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_borrar(ataque);
+                Thread.Sleep(2000);
+                if (personaje.Vida == 0)
+                {
+                    del_borrar(personaje);
+                    del_borrar(ataque);
+                    break;
+                }
+            }
+        }
         private void cargarCartas()
         {
             this.cartaMosquetera_jugador.setCarta(0);
@@ -393,7 +505,6 @@ namespace ClashRoyal.src.views.pages
             this.cartaBruja_jugador.setCarta(3);
             this.cartaMago_jugador.setCarta(4);
         }
-
         private void configuracion()
         {
             this.panel_areaAtaqueJugador.Parent = pictureBox_arena;
@@ -425,11 +536,9 @@ namespace ClashRoyal.src.views.pages
             this.panel_torre2Oponente.BackColor = Color.Transparent;
             this.panel_puente1.BackColor = Color.Transparent;
             this.panel_puente2.BackColor = Color.Transparent;
+
+            
         }
 
-        private void panel_torre2Oponente_EnabledChanged(object sender, EventArgs e)
-        {
-            MessageBox.Show("Evento");
-        }
     }
 }

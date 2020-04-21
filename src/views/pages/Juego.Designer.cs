@@ -172,7 +172,7 @@
             this.vida_torre1Oponente.Name = "vida_torre1Oponente";
             this.vida_torre1Oponente.Size = new System.Drawing.Size(48, 15);
             this.vida_torre1Oponente.TabIndex = 42;
-            this.vida_torre1Oponente.Value = 5;
+            this.vida_torre1Oponente.Value = 100;
             // 
             // vida_torre2Oponente
             // 
@@ -180,7 +180,7 @@
             this.vida_torre2Oponente.Name = "vida_torre2Oponente";
             this.vida_torre2Oponente.Size = new System.Drawing.Size(51, 16);
             this.vida_torre2Oponente.TabIndex = 43;
-            this.vida_torre2Oponente.Value = 5;
+            this.vida_torre2Oponente.Value = 100;
             // 
             // vida_torre2Jugador
             // 
@@ -233,7 +233,6 @@
             this.panel_torre2Oponente.Name = "panel_torre2Oponente";
             this.panel_torre2Oponente.Size = new System.Drawing.Size(70, 80);
             this.panel_torre2Oponente.TabIndex = 50;
-            this.panel_torre2Oponente.EnabledChanged += new System.EventHandler(this.panel_torre2Oponente_EnabledChanged);
             // 
             // cartaMago_jugador
             // 
@@ -296,8 +295,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(657, 605);
-            this.Controls.Add(this.panel_torre2Oponente);
-            this.Controls.Add(this.panel_reyOponente);
             this.Controls.Add(this.vida_reyJugador);
             this.Controls.Add(this.vida_torre1Jugador);
             this.Controls.Add(this.vida_torre2Jugador);
@@ -314,6 +311,8 @@
             this.Controls.Add(this.panel_areanaIzquierda);
             this.Controls.Add(this.panel_puente2);
             this.Controls.Add(this.panel_torre1Oponente);
+            this.Controls.Add(this.panel_torre2Oponente);
+            this.Controls.Add(this.panel_reyOponente);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Juego";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

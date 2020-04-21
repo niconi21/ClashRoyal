@@ -26,5 +26,13 @@ namespace ClashRoyal.src.views.components
             this.pictureBox1.Image = Carta.personaje;
             this.Vida = this.progressBar1.Value;
         }
+
+        public void retarVida(int value){
+            if (this.Vida > 0)
+            {
+                this.Vida = value;
+                this.progressBar1.Value = value;
+            }
+        }
     }
 }
