@@ -82,7 +82,7 @@ namespace ClashRoyal.src.views.pages
         {
             if (e.KeyChar == 13)
             {
-                Juego juego = new Juego(_jugador);
+                Juego juego = new Juego(_jugador,1);
                 juego.Show();
                 _inicio.pararHilo();
                 this.Dispose();

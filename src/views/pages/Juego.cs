@@ -20,23 +20,40 @@ namespace ClashRoyal.src.views.pages
         private Thread _hilo_defensaOponenteTorre1;
         private Thread _hilo_defensaOponenteTorre2;
         private Thread _hilo_defensaOponenteRey;
+
+        private Thread _hilo_oponente;
         private Thread _hilo_personajeOponente;
         private Thread _hilo_defensaJugadorTorre1;
         private Thread _hilo_defensaJugadorTorre2;
         private Thread _hilo_defensaJugadorRey;
 
+        private int _vidaOponente = 100;
+        private int _vidaJugaor = 100;
+        private int _danioAtaqueTorres = 20;
+
         private delegate void del(Control c, int x, int y);
-
-
+        
         private Carta _carta;
-        public Juego(Jugador jugador)
+        public Juego(Jugador jugador, int nivel)
         {
             InitializeComponent();
             _jugador = jugador;
+            nivel = 3;
+            switch (nivel)
+            {
+                case 1:
+                    this._danioAtaqueTorres = 10;
+                    break;
+                case 2:
+                    this._danioAtaqueTorres = 20;
+                    break;
+                case 3:
+                    this._danioAtaqueTorres = 50;
+                    break;
+            }
             cargarCartas();
-            configuracion();
+            configuracion();            
         }
-
         private void del_mover(Control c, int x, int y)
         {
             if (InvokeRequired)
@@ -110,7 +127,262 @@ namespace ClashRoyal.src.views.pages
             }
 
         }
-        
+        private void oponente()
+        {
+            while (this._vidaOponente > 0)
+            {
+                Thread.Sleep(10000);
+                this._hilo_personajeOponente = new Thread(personajeOponente);
+                this._hilo_personajeOponente.Start();
+            }
+        }
+        private void personajeOponente(object obj)
+        {
+            var ubicaciones = new Point[] { this.panel_torre1Oponente.Location, this.panel_torre2Oponente.Location };
+            int aleatorio = (new Random()).Next(0, 2);
+            var carta_componente = new Cartas_component();
+            carta_componente.setCarta((new Random()).Next(0, 4));
+            var carta = carta_componente.Carta;
+            personaje_component personaje = new personaje_component();
+            personaje.setPersonaje(carta);
+            var ubicacion = ubicaciones[aleatorio];
+            personaje.Location = new Point(aleatorio == 0 ? ubicacion.X + 40 : ubicacion.X, ubicacion.Y + 80);
+            del_crear(personaje);
+            if (aleatorio == 0)
+            {
+                while (!panel_areaAtaqueJugador.Bounds.Contains(personaje.Location))
+                {
+                    del_mover(personaje, personaje.Location.X, personaje.Location.Y + 5);
+                    Thread.Sleep(100);
+                }
+                this._hilo_defensaJugadorTorre1 = new Thread(defensaJugadorTorre1);
+                this._hilo_defensaJugadorTorre1.Start(personaje);
+                while (this.vida_torre1Jugador.Value > 0)
+                {
+                    if (personaje.Vida > 0)
+                    {
+                        PictureBox ataque = new PictureBox();
+                        ataque.BackColor = Color.Red;
+                        ataque.Size = new Size(10, 15);
+                        ataque.Location = new Point(personaje.Location.X + (personaje.Width / 2), personaje.Location.Y + 40);
+                        del_crear(ataque);
+                        while (!this.panel_torre1Jugador.Bounds.Contains(ataque.Location))
+                        {
+                            del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
+                            Thread.Sleep(100);
+                        }
+                        del_quitarVida(this.vida_torre1Jugador, this.vida_torre1Jugador.Value - 5);
+                        del_borrar(ataque);
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (personaje.Vida > 0)
+                {
+                    while (panel_reyJugador.Location.Y - 50 > personaje.Location.Y)
+                    {
+                        del_mover(personaje, personaje.Location.X, personaje.Location.Y + 5);
+                        Thread.Sleep(100);
+                    }
+                    while (panel_reyJugador.Location.X + 10 > personaje.Location.X)
+                    {
+                        del_mover(personaje, personaje.Location.X + 5, personaje.Location.Y);
+                        Thread.Sleep(100);
+                    }
+                    while (vida_reyJugador.Value > 0)
+                    {
+                        if (personaje.Vida > 0)
+                        {
+                            this._hilo_defensaJugadorRey = new Thread(defensaJugadorRey);
+                            this._hilo_defensaJugadorRey.Start(personaje);
+                            PictureBox ataque = new PictureBox();
+                            ataque.BackColor = Color.Red;
+                            ataque.Size = new Size(10, 15);
+                            ataque.Location = new Point(personaje.Location.X + (personaje.Width / 2), personaje.Location.Y + 40);
+                            del_crear(ataque);
+                            while (!this.panel_reyJugador.Bounds.Contains(ataque.Location))
+                            {
+                                del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
+                                Thread.Sleep(100);
+                            }
+                            del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - 5);
+                            del_borrar(ataque);
+                            this._vidaJugaor = this.vida_reyJugador.Value;
+                            Thread.Sleep(2000);
+                        }
+                        else
+                        {
+                            del_borrar(personaje);
+                        }
+                    }
+                }
+                else
+                {
+                    del_borrar(personaje);
+                }
+            }
+            else
+            {
+                while (!panel_areaAtaqueJugador.Bounds.Contains(personaje.Location))
+                {
+                    del_mover(personaje, personaje.Location.X, personaje.Location.Y + 5);
+                    Thread.Sleep(100);
+                }
+                while (vida_torre2Jugador.Value > 0)
+                {
+                    this._hilo_defensaJugadorTorre2 = new Thread(defensaJugadorTorre2);
+                    this._hilo_defensaJugadorTorre2.Start(personaje);
+                    if (personaje.Vida > 0)
+                    {
+                        PictureBox ataque = new PictureBox();
+                        ataque.BackColor = Color.Red;
+                        ataque.Size = new Size(10, 15);
+                        ataque.Location = new Point(personaje.Location.X + (personaje.Width / 2), personaje.Location.Y + 40);
+                        del_crear(ataque);
+                        while (!this.panel_torre2Jugador.Bounds.Contains(ataque.Location))
+                        {
+                            del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
+                            Thread.Sleep(100);
+                        }
+                        del_quitarVida(this.vida_torre2Jugador, this.vida_torre2Jugador.Value - 5);
+                        del_borrar(ataque);
+                        Thread.Sleep(2000);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (personaje.Vida > 0)
+                {
+                    
+                    while (panel_reyJugador.Location.Y - 50 > personaje.Location.Y)
+                    {
+                        del_mover(personaje, personaje.Location.X, personaje.Location.Y + 5);
+                        Thread.Sleep(100);
+                    }
+                    while (panel_reyJugador.Location.X + 10 < personaje.Location.X)
+                    {
+                        del_mover(personaje, personaje.Location.X - 5, personaje.Location.Y);
+                        Thread.Sleep(100);
+                    }
+                     while (vida_reyJugador.Value > 0)
+                     {
+                         if (personaje.Vida > 0)
+                         {
+                             this._hilo_defensaJugadorRey = new Thread(defensaJugadorRey);
+                             this._hilo_defensaJugadorRey.Start(personaje);
+                             PictureBox ataque = new PictureBox();
+                             ataque.BackColor = Color.Red;
+                             ataque.Size = new Size(10, 15);
+                             ataque.Location = new Point(personaje.Location.X + (personaje.Width / 2), personaje.Location.Y + 40);
+                             del_crear(ataque);
+                             while (!this.panel_reyJugador.Bounds.Contains(ataque.Location))
+                             {
+                                 del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
+                                 Thread.Sleep(100);
+                             }
+                             del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - 5);
+                             del_borrar(ataque);
+                             this._vidaJugaor = this.vida_reyJugador.Value;
+                             Thread.Sleep(2000);
+                         }
+                         else
+                         {
+                             del_borrar(personaje);
+                         }
+                     }
+                }
+                else
+                {
+                    del_borrar(personaje);
+                }
+            }
+        }
+        private void defensaJugadorTorre1(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            while (personaje.Vida > 0)
+            {
+                if (vida_torre1Jugador.Value > 0)
+                {
+                    PictureBox ataque = new PictureBox();
+                    ataque.BackColor = Color.Blue;
+                    ataque.Location = new Point(this.panel_torre1Jugador.Location.X + this.panel_torre1Jugador.Width / 2, this.panel_torre1Jugador.Location.Y + this.panel_torre1Jugador.Height - 50);
+                    ataque.Size = new Size(10, 15);
+                    del_crear(ataque);
+                    while (!personaje.Bounds.Contains(ataque.Location))
+                    {
+                        del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
+                        Thread.Sleep(100);
+                    }
+                    del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
+                    del_borrar(ataque);
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        private void defensaJugadorRey(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            while (personaje.Vida > 0)
+            {
+                if (vida_reyJugador.Value > 0)
+                {
+                    PictureBox ataque = new PictureBox();
+                    ataque.BackColor = Color.Blue;
+                    ataque.Location = new Point(this.panel_reyJugador.Location.X + this.panel_reyJugador.Width / 2, this.panel_reyJugador.Location.Y + this.panel_reyJugador.Height - 50);
+                    ataque.Size = new Size(10, 15);
+                    del_crear(ataque);
+                    while (!personaje.Bounds.Contains(ataque.Location))
+                    {
+                        del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
+                        Thread.Sleep(100);
+                    }
+                    del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
+                    del_borrar(ataque);
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        private void defensaJugadorTorre2(object sender)
+        {
+            personaje_component personaje = sender as personaje_component;
+            while (personaje.Vida > 0)
+            {
+                if (vida_torre2Jugador.Value > 0)
+                {
+                    PictureBox ataque = new PictureBox();
+                    ataque.BackColor = Color.Blue;
+                    ataque.Location = new Point(this.panel_torre2Jugador.Location.X + this.panel_torre2Jugador.Width / 2, this.panel_torre2Jugador.Location.Y + this.panel_torre2Jugador.Height - 50);
+                    ataque.Size = new Size(10, 15);
+                    del_crear(ataque);
+                    while (!personaje.Bounds.Contains(ataque.Location))
+                    {
+                        del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
+                        Thread.Sleep(100);
+                    }
+                    del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
+                    del_borrar(ataque);
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
         void cartasclick_presionado(object sender, MouseEventArgs e)
         {
             this._carta = (sender as Cartas_component).Carta;
@@ -218,7 +490,7 @@ namespace ClashRoyal.src.views.pages
                         Thread.Sleep(2000);
                         while (!panel_torre1Oponente.Bounds.Contains(ataque.Location))
                         {
-                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - 1);
+                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                             Thread.Sleep(100);
 
                         }
@@ -258,10 +530,11 @@ namespace ClashRoyal.src.views.pages
                             Thread.Sleep(2000);
                             while (!panel_reyOponente.Bounds.Contains(ataque.Location))
                             {
-                                del_mover(ataque, ataque.Location.X, ataque.Location.Y - 1);
+                                del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                                 Thread.Sleep(100);
                             }
                             del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - 5);
+                            this._vidaOponente = this.vida_reyOponente.Value;
                             del_borrar(ataque);
                         }
                         else
@@ -356,7 +629,7 @@ namespace ClashRoyal.src.views.pages
                         Thread.Sleep(2000);
                         while (!panel_torre2Oponente.Bounds.Contains(ataque.Location))
                         {
-                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - 1);
+                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                             Thread.Sleep(100);
 
                         }
@@ -379,7 +652,7 @@ namespace ClashRoyal.src.views.pages
                     }
                     while (personaje.Location.Y > this.vida_reyOponente.Location.Y + 80 && personaje.Location.X > this.vida_reyOponente.Location.X)
                     {
-                        del_mover(personaje, personaje.Location.X - 4, personaje.Location.Y - 1);
+                        del_mover(personaje, personaje.Location.X - 4, personaje.Location.Y - 5);
                         Thread.Sleep(100);
                     }
                     while (vida_reyOponente.Value > 0)//aqui empieza a atacar
@@ -396,10 +669,11 @@ namespace ClashRoyal.src.views.pages
                             Thread.Sleep(2000);
                             while (!panel_reyOponente.Bounds.Contains(ataque.Location))
                             {
-                                del_mover(ataque, ataque.Location.X, ataque.Location.Y - 1);
+                                del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                                 Thread.Sleep(100);
                             }
                             del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - 5);
+                            this._vidaOponente = this.vida_reyOponente.Value;
                             del_borrar(ataque);
                         }
                         else
@@ -430,7 +704,7 @@ namespace ClashRoyal.src.views.pages
                     del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
                     Thread.Sleep(100);
                 }
-                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
                 del_borrar(ataque);
                 Thread.Sleep(2000);
                 if (personaje.Vida == 0)
@@ -458,7 +732,7 @@ namespace ClashRoyal.src.views.pages
                     del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
                     Thread.Sleep(100);
                 }
-                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
                 del_borrar(ataque);
                 Thread.Sleep(1000);
                 if (personaje.Vida == 0)
@@ -486,7 +760,7 @@ namespace ClashRoyal.src.views.pages
                     del_mover(ataque, ataque.Location.X, ataque.Location.Y + 15);
                     Thread.Sleep(100);
                 }
-                del_quitarVidaPersonaje(personaje, personaje.Vida - 20);
+                del_quitarVidaPersonaje(personaje, personaje.Vida - this._danioAtaqueTorres);
                 del_borrar(ataque);
                 Thread.Sleep(2000);
                 if (personaje.Vida == 0)
@@ -534,11 +808,12 @@ namespace ClashRoyal.src.views.pages
             this.panel_torre1Oponente.BackColor = Color.Transparent;
             this.panel_torre2Jugador.BackColor = Color.Transparent;
             this.panel_torre2Oponente.BackColor = Color.Transparent;
-            this.panel_puente1.BackColor = Color.Transparent;
-            this.panel_puente2.BackColor = Color.Transparent;
 
-            
+            this._hilo_oponente = new Thread(oponente);
+            this._hilo_oponente.Start();
         }
+
+        
 
     }
 }

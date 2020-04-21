@@ -28,7 +28,7 @@ namespace ClashRoyal.src.views.components
         }
 
         public void retarVida(int value){
-            if (this.Vida > 0)
+            if (this.Vida > 0 )
             {
                 this.Vida = value;
                 this.progressBar1.Value = value;
