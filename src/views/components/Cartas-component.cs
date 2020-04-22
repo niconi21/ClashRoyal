@@ -49,6 +49,42 @@ namespace ClashRoyal.src.views.components
                 danio = 10,
                 elixir = 5
             },
+            //oponente
+            new Carta{
+                nombre = "Mosquetera",
+                imagen = global::ClashRoyal.Properties.Resources.Mosquetera___oponente,
+                personaje = global::ClashRoyal.Properties.Resources.Mosquetera,
+                danio = 5,
+                elixir = 2
+            },
+            new Carta{
+                nombre = "Bebé dragón",
+                imagen = global::ClashRoyal.Properties.Resources.Bebe_Dragon___oponente,
+                personaje = global::ClashRoyal.Properties.Resources.Bebe_Dragon,
+                danio = 10,
+                elixir = 4
+            },
+            new Carta{
+                nombre = "Esbirros",
+                imagen = global::ClashRoyal.Properties.Resources.Bebe_Dragon___oponente,
+                personaje = global::ClashRoyal.Properties.Resources.Esbirros,
+                danio = 5,
+                elixir = 3
+            },
+            new Carta{
+                nombre = "Bruja",
+                imagen = global::ClashRoyal.Properties.Resources.Bruja___oponente,
+                personaje = global::ClashRoyal.Properties.Resources.Bruja,
+                danio = 10,
+                elixir = 5
+            },
+            new Carta{
+                nombre = "Mago",
+                imagen = global::ClashRoyal.Properties.Resources.Mago___oponente,
+                personaje = global::ClashRoyal.Properties.Resources.Mago,
+                danio = 10,
+                elixir = 5
+            },
 
         };
         public Carta Carta { get; set; }
@@ -58,11 +94,12 @@ namespace ClashRoyal.src.views.components
             
         }
 
-        public void setCarta(int value)
+        public void setCarta(int value, bool oponente = false)
         {
-            Carta = this.cartas[value];
+            Carta = this.cartas[!oponente ? value : value + 5 ];
             this.imagen.Image = Carta.imagen;
             this.nombre.Text = Carta.nombre;
+            
         }
 
 

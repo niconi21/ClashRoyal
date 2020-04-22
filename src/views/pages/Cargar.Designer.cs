@@ -30,7 +30,6 @@
         {
             this.barra = new System.Windows.Forms.ProgressBar();
             this.porcentaje = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -57,17 +56,6 @@
             this.porcentaje.TabIndex = 7;
             this.porcentaje.Text = "Cargando 0%";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("Lucida Sans", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(487, 302);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 39);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "...";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -84,7 +72,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 456);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.porcentaje);
             this.Controls.Add(this.barra);
             this.Controls.Add(this.pictureBox1);
@@ -103,6 +90,5 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar barra;
         private System.Windows.Forms.Label porcentaje;
-        private System.Windows.Forms.Label label1;
     }
 }

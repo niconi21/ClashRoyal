@@ -93,6 +93,16 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Bebe_Dragon___oponente {
+            get {
+                object obj = ResourceManager.GetObject("Bebe Dragon - oponente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bruja {
             get {
                 object obj = ResourceManager.GetObject("Bruja", resourceCulture);
@@ -106,6 +116,16 @@ namespace ClashRoyal.Properties {
         internal static System.Drawing.Bitmap bruja___carta {
             get {
                 object obj = ResourceManager.GetObject("bruja - carta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bruja___oponente {
+            get {
+                object obj = ResourceManager.GetObject("Bruja - oponente", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,6 +203,16 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Esbirros___oponente {
+            get {
+                object obj = ResourceManager.GetObject("Esbirros - oponente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap esbirros__carta {
             get {
                 object obj = ResourceManager.GetObject("esbirros- carta", resourceCulture);
@@ -253,6 +283,16 @@ namespace ClashRoyal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Mago___oponente {
+            get {
+                object obj = ResourceManager.GetObject("Mago - oponente", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Mosquetera {
             get {
                 object obj = ResourceManager.GetObject("Mosquetera", resourceCulture);
@@ -266,6 +306,16 @@ namespace ClashRoyal.Properties {
         internal static System.Drawing.Bitmap Mosquetera___carta {
             get {
                 object obj = ResourceManager.GetObject("Mosquetera - carta", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Mosquetera___oponente {
+            get {
+                object obj = ResourceManager.GetObject("Mosquetera - oponente", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

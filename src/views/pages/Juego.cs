@@ -336,7 +336,7 @@ namespace ClashRoyal.src.views.pages
             var ubicaciones = new Point[] { this.panel_torre1Oponente.Location, this.panel_torre2Oponente.Location };
             int aleatorio = (new Random()).Next(0, 2);
             var carta_componente = new Cartas_component();
-            carta_componente.setCarta((new Random()).Next(0, 4));
+            carta_componente.setCarta((new Random()).Next(0, 4), true);
             var carta = carta_componente.Carta;
             personaje_component personaje = new personaje_component();
             personaje.setPersonaje(carta);
