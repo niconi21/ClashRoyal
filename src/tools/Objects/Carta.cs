@@ -13,5 +13,6 @@ namespace ClashRoyal.src.tools.Objects
         public Image imagen { get; set; }
         public Image personaje { get; set; }
         public int danio { get; set; }
+        public int elixir { get; set; }
     }
 }

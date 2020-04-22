@@ -82,7 +82,8 @@ namespace ClashRoyal.src.views.pages
         {
             if (e.KeyChar == 13)
             {
-                Juego juego = new Juego(_jugador,1);
+                var nivel = this._inicio.nivel();
+                Juego juego = new Juego(_jugador,nivel);
                 juego.Show();
                 _inicio.pararHilo();
                 this.Dispose();

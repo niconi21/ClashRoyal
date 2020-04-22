@@ -31,6 +31,7 @@ namespace ClashRoyal.src.views.options
             _jugador = jugador;
             llenarTabla();
             this.label2.Text = "Score de " + _jugador.Nombre + " " + _jugador.Apepat + " " + _jugador.Apemat;
+            
         }
 
         private void llenarTabla()
@@ -38,6 +39,7 @@ namespace ClashRoyal.src.views.options
             lblMejorPartida.Parent = pictureBox1;
             lblMejorPartida.BackColor = Color.Transparent;
             estadisticas = (new Conexion()).consultarEstadisticas(_jugador);
+            dataGridView2.DataSource = (new Conexion()).consultarPartida(_jugador);
             dataGridView1.DataSource = estadisticas;
             obtenerPuntiajes();
             lblMejorPartida.Text = "Puntuaje: Daño recibido " + _danio +

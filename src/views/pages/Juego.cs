@@ -1,4 +1,5 @@
-﻿using ClashRoyal.src.tools.Objects;
+﻿using ClashRoyal.src.tools.database;
+using ClashRoyal.src.tools.Objects;
 using ClashRoyal.src.views.components;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,19 @@ namespace ClashRoyal.src.views.pages
         private Thread _hilo_defensaJugadorTorre2;
         private Thread _hilo_defensaJugadorRey;
 
+        private Thread _hilo_elixir;
+        private Thread _hilo_ganador;
+        private Thread _hilo_tiempo;
+
+        private bool juegoTerminado = false;
+
         private int _vidaOponente = 100;
         private int _vidaJugaor = 100;
         private int _danioAtaqueTorres = 20;
+        private int _elixir = 10;
+        private int[] personajes = new int[5];
+        private int _elixirUsado = 0;
+        private int _tiempo = 0;
 
         private delegate void del(Control c, int x, int y);
         
@@ -38,7 +49,7 @@ namespace ClashRoyal.src.views.pages
         {
             InitializeComponent();
             _jugador = jugador;
-            nivel = 3;
+            nivel = 1;
             switch (nivel)
             {
                 case 1:
@@ -51,16 +62,19 @@ namespace ClashRoyal.src.views.pages
                     this._danioAtaqueTorres = 50;
                     break;
             }
-            cargarCartas();
-            configuracion();            
+                        
         }
         private void del_mover(Control c, int x, int y)
         {
             if (InvokeRequired)
             {
-                del mover = new del(del_mover);
-                Object[] parametros = new Object[] { c, x, y };
-                Invoke(mover, parametros);
+                try
+                {
+                    del mover = new del(del_mover);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(mover, parametros);
+                }
+                catch { }
             }
             else
             {
@@ -87,9 +101,13 @@ namespace ClashRoyal.src.views.pages
         {
             if (InvokeRequired)
             {
-                del borrar = new del(del_borrar);
-                Object[] parametros = new Object[] { c, x, y };
-                Invoke(borrar, parametros);
+                try
+                {
+                    del borrar = new del(del_borrar);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(borrar, parametros);
+                }
+                catch { }
             }
             else
             {
@@ -100,25 +118,42 @@ namespace ClashRoyal.src.views.pages
         {
             if (InvokeRequired)
             {
-                del quitar = new del(del_quitarVida);
-                Object[] parametros = new Object[] { c, x, y };
-                Invoke(quitar, parametros);
+                try
+                {
+                    del quitar = new del(del_quitarVida);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(quitar, parametros);
+                }
+                catch { }
             }
             else
             {
                 ProgressBar vida = (ProgressBar)c;
-                if (vida.Value > 0)
+                try
+                {
+                    if (vida.Value > 0)
                     vida.Value = x;
+                }
+                catch
+                {
+
+                    vida.Value = 0;
+                }
             }
 
         }
         private void del_quitarVidaPersonaje(Control c, int x, int y = 0)
         {
+            
             if (InvokeRequired)
             {
-                del quitar = new del(del_quitarVidaPersonaje);
-                Object[] parametros = new Object[] { c, x, y };
-                Invoke(quitar, parametros);
+                try
+                {
+                    del quitar = new del(del_quitarVidaPersonaje);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(quitar, parametros);
+                }
+                catch { }
             }
             else
             {
@@ -127,13 +162,173 @@ namespace ClashRoyal.src.views.pages
             }
 
         }
+        private void del_ganador(Control c, int x, int y = 0)
+        {
+            if (InvokeRequired)
+            {
+                try
+                {
+                    del ganador = new del(del_ganador);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(ganador, parametros);
+                }
+                catch { }
+            }
+            else
+            {
+                if (x == 1)
+                {
+                    this.label_anuncio.Text = "¡Has pedido!";
+                }
+                else
+                {
+                    this.label_anuncio.Text = "¡Has Ganado!";
+                }
+                label_anuncio.Location = new Point(label_anuncio.Location.X + 50, label_anuncio.Location.Y);
+                label_anuncio.Visible = true;
+                juegoTerminado = true;
+            }
+
+        }
+        private void del_elixir(Control c, int x, int y = 0)
+        {
+            if (InvokeRequired)
+            {
+                try
+                {
+                    del elixir = new del(del_elixir);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(elixir, parametros);
+                }
+                catch { }
+            }
+            else
+            {
+
+                this.label_elixir.Text = "Elixir: " + x;
+            }
+
+        }
+        private void del_tiempo(Control c, int x, int y = 0)
+        {
+            if (InvokeRequired)
+            {
+                try
+                {
+                    del tiempo = new del(del_tiempo);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(tiempo, parametros);
+                }
+                catch { }
+            }
+            else
+            {
+
+                this.label_tiempo.Text = "Tiempo: " + x + " segundos";
+            }
+
+        }
+        private void del_terminado(Control c, int x=0, int y = 0)
+        {
+            if (InvokeRequired)
+            {
+                try
+                {
+                    del tiempo = new del(del_terminado);
+                    Object[] parametros = new Object[] { c, x, y };
+                    Invoke(tiempo, parametros);
+                }
+                catch { }
+            }
+            else
+            {
+                Inicio inicio = new Inicio(_jugador);
+                inicio.Show();
+                this.Dispose();
+                
+            }
+
+        }
+        private void ganador()
+        {
+            while (this._vidaOponente > 0 && this._vidaJugaor > 0)
+            {
+
+            }
+            del_ganador(label_anuncio, this._vidaJugaor > 0 ? 2 : 1);
+            terminar();
+            int veces = personajes[0];
+            int mayor = 0;
+            for (int i = 1; i < personajes.Length; i++)
+            {
+                if (veces <= personajes[i])
+                {
+                    veces = personajes[i];
+                    mayor = i;
+                }
+            }
+            String personaje = "";
+            switch (mayor)
+            {
+                case 1:
+                    personaje = "Mosquetera";
+                    break;
+                case 2:
+                    personaje = "Bebé dragón";
+                    break;
+                case 3:
+                    personaje = "Esbirros";
+                    break;
+                case 4:
+                    personaje = "Bruja";
+                    break;
+                case 5:
+                    personaje = "Mago";
+                    break;
+            }
+            Estadistica estadistica = new Estadistica
+            {
+                id_jugador = this._jugador.Id_jugador,
+                danio = 100 - this._vidaJugaor,
+                tiempo = this._tiempo,
+                elixir = this._elixirUsado,
+                personaje = personaje
+            };
+            (new Conexion()).insertarEstadistica(estadistica);
+
+            (new Conexion()).insertarPartida(_jugador, this._vidaJugaor > 0 ? 1 : 0);
+            terminar();
+            del_terminado(this);
+        }
+        private void elixir()
+        {
+            while (!juegoTerminado)
+            {
+                if (this._elixir < 10)
+                {
+                    this._elixir++;
+                    del_elixir(this.label_elixir, this._elixir);
+                    Thread.Sleep(3000);
+                }
+            }
+        }
+        private void tiempo()
+        {
+            while (!juegoTerminado)
+            {
+                this._tiempo++;
+                Thread.Sleep(1000);
+                del_tiempo(label_tiempo, this._tiempo);
+            }
+        }
         private void oponente()
         {
             while (this._vidaOponente > 0)
             {
-                Thread.Sleep(10000);
-                this._hilo_personajeOponente = new Thread(personajeOponente);
-                this._hilo_personajeOponente.Start();
+                    Thread.Sleep(5000);
+                    this._hilo_personajeOponente = new Thread(personajeOponente);
+                    this._hilo_personajeOponente.Start();
+                
             }
         }
         private void personajeOponente(object obj)
@@ -171,7 +366,7 @@ namespace ClashRoyal.src.views.pages
                             del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
                             Thread.Sleep(100);
                         }
-                        del_quitarVida(this.vida_torre1Jugador, this.vida_torre1Jugador.Value - 5);
+                        del_quitarVida(this.vida_torre1Jugador, this.vida_torre1Jugador.Value - personaje.Carta.danio);
                         del_borrar(ataque);
                         Thread.Sleep(2000);
                     }
@@ -208,7 +403,7 @@ namespace ClashRoyal.src.views.pages
                                 del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
                                 Thread.Sleep(100);
                             }
-                            del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - 5);
+                            del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - personaje.Carta.danio);
                             del_borrar(ataque);
                             this._vidaJugaor = this.vida_reyJugador.Value;
                             Thread.Sleep(2000);
@@ -247,7 +442,7 @@ namespace ClashRoyal.src.views.pages
                             del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
                             Thread.Sleep(100);
                         }
-                        del_quitarVida(this.vida_torre2Jugador, this.vida_torre2Jugador.Value - 5);
+                        del_quitarVida(this.vida_torre2Jugador, this.vida_torre2Jugador.Value - personaje.Carta.danio);
                         del_borrar(ataque);
                         Thread.Sleep(2000);
                     }
@@ -285,7 +480,7 @@ namespace ClashRoyal.src.views.pages
                                  del_mover(ataque, ataque.Location.X, ataque.Location.Y + 5);
                                  Thread.Sleep(100);
                              }
-                             del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - 5);
+                             del_quitarVida(this.vida_reyJugador, this.vida_reyJugador.Value - personaje.Carta.danio);
                              del_borrar(ataque);
                              this._vidaJugaor = this.vida_reyJugador.Value;
                              Thread.Sleep(2000);
@@ -389,18 +584,44 @@ namespace ClashRoyal.src.views.pages
         }
         void cartasclick_sinPresionar(object sender, MouseEventArgs e)
         {
-            if (pictureBox_arena.Bounds.Contains(this.PointToClient(Cursor.Position)))
+            int diferencia = this._elixir - this._carta.elixir;
+            if (diferencia>0)
             {
-                if (this.panel_spawnJugador.Bounds.Contains(this.PointToClient(Cursor.Position)))
+                this._elixir = diferencia;
+                this._elixirUsado += this._carta.elixir;
+                del_elixir(this.label_elixir, this._elixir);
+                if (pictureBox_arena.Bounds.Contains(this.PointToClient(Cursor.Position)))
                 {
-                    personaje_component personaje = new personaje_component();
-                    personaje.setPersonaje(this._carta);
-                    personaje.Location = this.PointToClient(Cursor.Position);
-                    personaje.Parent = pictureBox_arena;
-                    this.Controls.Add(personaje);
-                    this.pictureBox_arena.SendToBack();
-                    _hilo_personajeJugador = new Thread(moverPersonajeJugador);
-                    _hilo_personajeJugador.Start(personaje);
+                    if (this.panel_spawnJugador.Bounds.Contains(this.PointToClient(Cursor.Position)))
+                    {
+                        personaje_component personaje = new personaje_component();
+                        personaje.setPersonaje(this._carta);
+                        personaje.Location = this.PointToClient(Cursor.Position);
+                        personaje.Parent = pictureBox_arena;
+                        this.Controls.Add(personaje);
+                        this.pictureBox_arena.SendToBack();
+                        _hilo_personajeJugador = new Thread(moverPersonajeJugador);
+                        _hilo_personajeJugador.Start(personaje);
+
+                        switch (personaje.Carta.nombre)
+                        {
+                            case "Mosquetera":
+                                personajes[0]++;
+                                break;
+                            case "Bebé dragón":
+                                personajes[1]++;
+                                break;
+                            case "Esbirros":
+                                personajes[2]++;
+                                break;
+                            case "Bruja":
+                                personajes[3]++;
+                                break;
+                            case "Mago":
+                                personajes[4]++;
+                                break;
+                        }
+                    }
                 }
             }
             this._carta = null;
@@ -495,7 +716,7 @@ namespace ClashRoyal.src.views.pages
 
                         }
 
-                        del_quitarVida(this.vida_torre1Oponente, vida_torre1Oponente.Value - 5);
+                        del_quitarVida(this.vida_torre1Oponente, vida_torre1Oponente.Value - personaje.Carta.danio);
                         del_borrar(ataque);
                     }
                     else
@@ -533,7 +754,7 @@ namespace ClashRoyal.src.views.pages
                                 del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                                 Thread.Sleep(100);
                             }
-                            del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - 5);
+                            del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - personaje.Carta.danio);
                             this._vidaOponente = this.vida_reyOponente.Value;
                             del_borrar(ataque);
                         }
@@ -629,7 +850,7 @@ namespace ClashRoyal.src.views.pages
                         Thread.Sleep(2000);
                         while (!panel_torre2Oponente.Bounds.Contains(ataque.Location))
                         {
-                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
+                            del_mover(ataque, ataque.Location.X, ataque.Location.Y - personaje.Carta.danio);
                             Thread.Sleep(100);
 
                         }
@@ -672,7 +893,7 @@ namespace ClashRoyal.src.views.pages
                                 del_mover(ataque, ataque.Location.X, ataque.Location.Y - 5);
                                 Thread.Sleep(100);
                             }
-                            del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - 5);
+                            del_quitarVida(this.vida_reyOponente, vida_reyOponente.Value - personaje.Carta.danio);
                             this._vidaOponente = this.vida_reyOponente.Value;
                             del_borrar(ataque);
                         }
@@ -811,8 +1032,92 @@ namespace ClashRoyal.src.views.pages
 
             this._hilo_oponente = new Thread(oponente);
             this._hilo_oponente.Start();
-        }
 
+            this._hilo_ganador = new Thread(ganador);
+            this._hilo_ganador.Start();
+
+            this._hilo_elixir = new Thread(elixir);
+            this._hilo_elixir.Start();
+
+            this._hilo_tiempo= new Thread(tiempo);
+            this._hilo_tiempo.Start();
+        }
+        private void Juego_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                this.label_anuncio.Visible = false;
+                cargarCartas();
+                configuracion();
+            }
+            if (e.KeyChar == 27)
+            {
+                terminar();
+                Inicio inicio = new Inicio(_jugador);
+                inicio.Show();
+                this.Dispose();
+            }
+        }
+        private void terminar()
+        {
+            try
+            {
+                _hilo_personajeJugador.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaOponenteTorre1.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaOponenteTorre2.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaOponenteRey.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_oponente.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_personajeOponente.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaJugadorTorre1.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaJugadorTorre2.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_defensaJugadorRey.Abort();
+            }
+            catch { }
+            
+            try
+            {
+                _hilo_elixir.Abort();
+            }
+            catch { }
+            try
+            {
+                _hilo_tiempo.Abort();
+            }
+            catch { }
+
+        }
         
 
     }

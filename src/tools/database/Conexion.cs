@@ -56,7 +56,7 @@ namespace ClashRoyal.src.tools.database
         public void insertarPartida(Jugador jugador, int gana)
         {
             conexion.Open();
-            String insertar = "INSERT INTO Partida values ('" + jugador.Id_jugador + "'," + gana + ")";
+            String insertar = "INSERT INTO Partida values (" + jugador.Id_jugador + "," + gana + ")";
             SqlCommand sqlCommand = new SqlCommand(insertar, conexion);
             sqlCommand.ExecuteNonQuery();
             conexion.Close();
@@ -64,7 +64,7 @@ namespace ClashRoyal.src.tools.database
         public List<Partida> consultarPartida(Jugador jugador)
         {
             conexion.Open();
-            String consulta = "SELECT * FROM Partida WHERE id_jugador = " + jugador.Id_jugador + "";
+            String consulta = "SELECT * FROM Partida WHERE id_jugador = " + jugador.Id_jugador;
             SqlCommand sqlCommand = new SqlCommand(consulta, conexion);
             SqlDataReader dr = sqlCommand.ExecuteReader();
             List<Partida> partidas = new List<Partida>();
@@ -72,9 +72,9 @@ namespace ClashRoyal.src.tools.database
             {
                 Partida paritda = new Partida
                 {
-                    id_partida = int.Parse(dr["id_partida"].ToString()),
-                    id_jugador = int.Parse(dr["id_jugador"].ToString()),
-                    gana = int.Parse(dr["gana"].ToString()),
+                    id_partida = int.Parse(dr.GetInt32(0).ToString()),
+                    id_jugador = int.Parse(dr.GetInt32(1).ToString()),
+                    gana = int.Parse(dr.GetInt32(2).ToString()),
                 };
                 partidas.Add(paritda);
             }
@@ -84,7 +84,7 @@ namespace ClashRoyal.src.tools.database
         public void insertarEstadistica(Estadistica estadistica)
         {
             conexion.Open();
-            String insertar = "INSERT INTO Estadistica values (" + estadistica.id_jugador + "," + estadistica.danio + "," + estadistica.tiempo + "," + estadistica.elixir + "," + estadistica.personaje + ")";
+            String insertar = "INSERT INTO Estadistica values (" + estadistica.id_jugador + "," + estadistica.danio + "," + estadistica.tiempo + "," + estadistica.elixir + ",'" + estadistica.personaje + "')";
             SqlCommand sqlCommand = new SqlCommand(insertar, conexion);
             sqlCommand.ExecuteNonQuery();
             conexion.Close();

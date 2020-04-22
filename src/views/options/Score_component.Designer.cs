@@ -38,9 +38,15 @@
             this.personajeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadisticaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblMejorPartida = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.partidaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ganaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.estadisticaBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partidaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -119,16 +125,45 @@
             this.lblMejorPartida.BackColor = System.Drawing.Color.Transparent;
             this.lblMejorPartida.Font = new System.Drawing.Font("Supercell-Magic", 8F, System.Drawing.FontStyle.Bold);
             this.lblMejorPartida.ForeColor = System.Drawing.Color.White;
-            this.lblMejorPartida.Location = new System.Drawing.Point(458, 213);
+            this.lblMejorPartida.Location = new System.Drawing.Point(455, 314);
             this.lblMejorPartida.Name = "lblMejorPartida";
             this.lblMejorPartida.Size = new System.Drawing.Size(119, 16);
             this.lblMejorPartida.TabIndex = 5;
             this.lblMejorPartida.Text = "Puntuaje: ...";
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AutoGenerateColumns = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.ganaDataGridViewTextBoxColumn});
+            this.dataGridView2.DataSource = this.partidaBindingSource;
+            this.dataGridView2.Location = new System.Drawing.Point(458, 24);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(300, 159);
+            this.dataGridView2.TabIndex = 6;
+            // 
+            // partidaBindingSource
+            // 
+            this.partidaBindingSource.DataSource = typeof(ClashRoyal.src.tools.Objects.Partida);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Número";
+            this.Column1.Name = "Column1";
+            // 
+            // ganaDataGridViewTextBoxColumn
+            // 
+            this.ganaDataGridViewTextBoxColumn.DataPropertyName = "gana";
+            this.ganaDataGridViewTextBoxColumn.HeaderText = "Gana";
+            this.ganaDataGridViewTextBoxColumn.Name = "ganaDataGridViewTextBoxColumn";
+            // 
             // Score_component
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.lblMejorPartida);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
@@ -138,6 +173,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.estadisticaBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.partidaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,5 +191,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn personajeDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource estadisticaBindingSource;
         private System.Windows.Forms.Label lblMejorPartida;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ganaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource partidaBindingSource;
     }
 }

@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cartaMago_jugador = new ClashRoyal.src.views.components.Cartas_component();
-            this.cartaBruja_jugador = new ClashRoyal.src.views.components.Cartas_component();
-            this.cartaEsbirros_jugador = new ClashRoyal.src.views.components.Cartas_component();
-            this.cartaBebeDragon_jugador = new ClashRoyal.src.views.components.Cartas_component();
-            this.cartaMosquetera_jugador = new ClashRoyal.src.views.components.Cartas_component();
             this.panel_reyJugador = new System.Windows.Forms.Panel();
             this.panel_spawnJugador = new System.Windows.Forms.Panel();
             this.panel_arenaDerecha = new System.Windows.Forms.Panel();
@@ -53,6 +48,14 @@
             this.panel_torre2Oponente = new System.Windows.Forms.Panel();
             this.panel_torre1Jugador = new System.Windows.Forms.Panel();
             this.panel_torre2Jugador = new System.Windows.Forms.Panel();
+            this.label_anuncio = new System.Windows.Forms.Label();
+            this.label_elixir = new System.Windows.Forms.Label();
+            this.cartaMago_jugador = new ClashRoyal.src.views.components.Cartas_component();
+            this.cartaBruja_jugador = new ClashRoyal.src.views.components.Cartas_component();
+            this.cartaEsbirros_jugador = new ClashRoyal.src.views.components.Cartas_component();
+            this.cartaBebeDragon_jugador = new ClashRoyal.src.views.components.Cartas_component();
+            this.cartaMosquetera_jugador = new ClashRoyal.src.views.components.Cartas_component();
+            this.label_tiempo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel_spawnJugador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_arena)).BeginInit();
@@ -70,61 +73,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(108, 605);
             this.panel1.TabIndex = 28;
-            // 
-            // cartaMago_jugador
-            // 
-            this.cartaMago_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
-            this.cartaMago_jugador.Carta = null;
-            this.cartaMago_jugador.Location = new System.Drawing.Point(0, 509);
-            this.cartaMago_jugador.Name = "cartaMago_jugador";
-            this.cartaMago_jugador.Size = new System.Drawing.Size(108, 80);
-            this.cartaMago_jugador.TabIndex = 4;
-            this.cartaMago_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
-            this.cartaMago_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
-            // 
-            // cartaBruja_jugador
-            // 
-            this.cartaBruja_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
-            this.cartaBruja_jugador.Carta = null;
-            this.cartaBruja_jugador.Location = new System.Drawing.Point(0, 386);
-            this.cartaBruja_jugador.Name = "cartaBruja_jugador";
-            this.cartaBruja_jugador.Size = new System.Drawing.Size(108, 80);
-            this.cartaBruja_jugador.TabIndex = 3;
-            this.cartaBruja_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
-            this.cartaBruja_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
-            // 
-            // cartaEsbirros_jugador
-            // 
-            this.cartaEsbirros_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
-            this.cartaEsbirros_jugador.Carta = null;
-            this.cartaEsbirros_jugador.Location = new System.Drawing.Point(0, 264);
-            this.cartaEsbirros_jugador.Name = "cartaEsbirros_jugador";
-            this.cartaEsbirros_jugador.Size = new System.Drawing.Size(108, 80);
-            this.cartaEsbirros_jugador.TabIndex = 2;
-            this.cartaEsbirros_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
-            this.cartaEsbirros_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
-            // 
-            // cartaBebeDragon_jugador
-            // 
-            this.cartaBebeDragon_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
-            this.cartaBebeDragon_jugador.Carta = null;
-            this.cartaBebeDragon_jugador.Location = new System.Drawing.Point(0, 141);
-            this.cartaBebeDragon_jugador.Name = "cartaBebeDragon_jugador";
-            this.cartaBebeDragon_jugador.Size = new System.Drawing.Size(108, 80);
-            this.cartaBebeDragon_jugador.TabIndex = 1;
-            this.cartaBebeDragon_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
-            this.cartaBebeDragon_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
-            // 
-            // cartaMosquetera_jugador
-            // 
-            this.cartaMosquetera_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
-            this.cartaMosquetera_jugador.Carta = null;
-            this.cartaMosquetera_jugador.Location = new System.Drawing.Point(0, 24);
-            this.cartaMosquetera_jugador.Name = "cartaMosquetera_jugador";
-            this.cartaMosquetera_jugador.Size = new System.Drawing.Size(108, 80);
-            this.cartaMosquetera_jugador.TabIndex = 0;
-            this.cartaMosquetera_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
-            this.cartaMosquetera_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
             // 
             // panel_reyJugador
             // 
@@ -269,12 +217,104 @@
             this.panel_torre2Jugador.Size = new System.Drawing.Size(65, 99);
             this.panel_torre2Jugador.TabIndex = 52;
             // 
+            // label_anuncio
+            // 
+            this.label_anuncio.AutoSize = true;
+            this.label_anuncio.BackColor = System.Drawing.Color.Black;
+            this.label_anuncio.Font = new System.Drawing.Font("Supercell-Magic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_anuncio.ForeColor = System.Drawing.SystemColors.Control;
+            this.label_anuncio.Location = new System.Drawing.Point(189, 303);
+            this.label_anuncio.Name = "label_anuncio";
+            this.label_anuncio.Size = new System.Drawing.Size(343, 24);
+            this.label_anuncio.TabIndex = 53;
+            this.label_anuncio.Text = "Presiona enter para jugar";
+            // 
+            // label_elixir
+            // 
+            this.label_elixir.AutoSize = true;
+            this.label_elixir.Font = new System.Drawing.Font("Supercell-Magic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_elixir.ForeColor = System.Drawing.Color.White;
+            this.label_elixir.Location = new System.Drawing.Point(190, 24);
+            this.label_elixir.Name = "label_elixir";
+            this.label_elixir.Size = new System.Drawing.Size(78, 16);
+            this.label_elixir.TabIndex = 54;
+            this.label_elixir.Text = "Elixir: 10 ";
+            // 
+            // cartaMago_jugador
+            // 
+            this.cartaMago_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.cartaMago_jugador.Carta = null;
+            this.cartaMago_jugador.Location = new System.Drawing.Point(0, 509);
+            this.cartaMago_jugador.Name = "cartaMago_jugador";
+            this.cartaMago_jugador.Size = new System.Drawing.Size(108, 80);
+            this.cartaMago_jugador.TabIndex = 4;
+            this.cartaMago_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
+            this.cartaMago_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
+            // 
+            // cartaBruja_jugador
+            // 
+            this.cartaBruja_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.cartaBruja_jugador.Carta = null;
+            this.cartaBruja_jugador.Location = new System.Drawing.Point(0, 386);
+            this.cartaBruja_jugador.Name = "cartaBruja_jugador";
+            this.cartaBruja_jugador.Size = new System.Drawing.Size(108, 80);
+            this.cartaBruja_jugador.TabIndex = 3;
+            this.cartaBruja_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
+            this.cartaBruja_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
+            // 
+            // cartaEsbirros_jugador
+            // 
+            this.cartaEsbirros_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.cartaEsbirros_jugador.Carta = null;
+            this.cartaEsbirros_jugador.Location = new System.Drawing.Point(0, 264);
+            this.cartaEsbirros_jugador.Name = "cartaEsbirros_jugador";
+            this.cartaEsbirros_jugador.Size = new System.Drawing.Size(108, 80);
+            this.cartaEsbirros_jugador.TabIndex = 2;
+            this.cartaEsbirros_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
+            this.cartaEsbirros_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
+            // 
+            // cartaBebeDragon_jugador
+            // 
+            this.cartaBebeDragon_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.cartaBebeDragon_jugador.Carta = null;
+            this.cartaBebeDragon_jugador.Location = new System.Drawing.Point(0, 141);
+            this.cartaBebeDragon_jugador.Name = "cartaBebeDragon_jugador";
+            this.cartaBebeDragon_jugador.Size = new System.Drawing.Size(108, 80);
+            this.cartaBebeDragon_jugador.TabIndex = 1;
+            this.cartaBebeDragon_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
+            this.cartaBebeDragon_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
+            // 
+            // cartaMosquetera_jugador
+            // 
+            this.cartaMosquetera_jugador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.cartaMosquetera_jugador.Carta = null;
+            this.cartaMosquetera_jugador.Location = new System.Drawing.Point(0, 24);
+            this.cartaMosquetera_jugador.Name = "cartaMosquetera_jugador";
+            this.cartaMosquetera_jugador.Size = new System.Drawing.Size(108, 80);
+            this.cartaMosquetera_jugador.TabIndex = 0;
+            this.cartaMosquetera_jugador.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cartasclick_presionado);
+            this.cartaMosquetera_jugador.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cartasclick_sinPresionar);
+            // 
+            // label_tiempo
+            // 
+            this.label_tiempo.AutoSize = true;
+            this.label_tiempo.Font = new System.Drawing.Font("Supercell-Magic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_tiempo.ForeColor = System.Drawing.Color.White;
+            this.label_tiempo.Location = new System.Drawing.Point(413, 30);
+            this.label_tiempo.Name = "label_tiempo";
+            this.label_tiempo.Size = new System.Drawing.Size(163, 16);
+            this.label_tiempo.TabIndex = 55;
+            this.label_tiempo.Text = "Tiempo: 0 segundos";
+            // 
             // Juego
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(657, 605);
+            this.Controls.Add(this.label_tiempo);
+            this.Controls.Add(this.label_elixir);
+            this.Controls.Add(this.label_anuncio);
             this.Controls.Add(this.vida_reyJugador);
             this.Controls.Add(this.vida_torre2Jugador);
             this.Controls.Add(this.vida_torre1Jugador);
@@ -295,13 +335,16 @@
             this.Controls.Add(this.panel_torre1Jugador);
             this.Controls.Add(this.panel_torre2Jugador);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "Juego";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Juego";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Juego_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel_spawnJugador.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_arena)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -332,5 +375,8 @@
         private System.Windows.Forms.Panel panel_torre2Oponente;
         private System.Windows.Forms.Panel panel_torre1Jugador;
         private System.Windows.Forms.Panel panel_torre2Jugador;
+        private System.Windows.Forms.Label label_anuncio;
+        private System.Windows.Forms.Label label_elixir;
+        private System.Windows.Forms.Label label_tiempo;
     }
 }

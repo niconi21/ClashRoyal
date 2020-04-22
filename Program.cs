@@ -18,7 +18,7 @@ namespace ClashRoyal
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Juego login = new Juego(new Jugador(), 1);
+            Login login = new Login();
             login.Show();
             Application.Run();
         }

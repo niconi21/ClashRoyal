@@ -62,6 +62,10 @@ namespace ClashRoyal.src.views.options
 
         private delegate void del_parpadeo();
 
+        public int nivel()
+        {
+            return int.Parse(comboBox1.SelectedItem.ToString());
+        }
 
         public void pararHilo()
         {
