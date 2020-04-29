@@ -30,6 +30,7 @@
         {
             this.nombre = new System.Windows.Forms.Label();
             this.imagen = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imagen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,18 +47,30 @@
             // 
             // imagen
             // 
-            this.imagen.Location = new System.Drawing.Point(31, 3);
+            this.imagen.Location = new System.Drawing.Point(6, 3);
             this.imagen.Name = "imagen";
             this.imagen.Size = new System.Drawing.Size(43, 53);
             this.imagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imagen.TabIndex = 0;
             this.imagen.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Supercell-Magic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.Location = new System.Drawing.Point(53, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 16);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Elixir:";
+            // 
             // Cartas_component
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(53)))), ((int)(((byte)(28)))));
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.nombre);
             this.Controls.Add(this.imagen);
             this.Name = "Cartas_component";
@@ -72,5 +85,6 @@
 
         private System.Windows.Forms.PictureBox imagen;
         private System.Windows.Forms.Label nombre;
+        private System.Windows.Forms.Label label1;
     }
 }

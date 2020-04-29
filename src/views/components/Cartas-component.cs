@@ -99,7 +99,7 @@ namespace ClashRoyal.src.views.components
             Carta = this.cartas[!oponente ? value : value + 5 ];
             this.imagen.Image = Carta.imagen;
             this.nombre.Text = Carta.nombre;
-            
+            this.label1.Text = "Elixir:\n  " + Carta.elixir;
         }
 
 
