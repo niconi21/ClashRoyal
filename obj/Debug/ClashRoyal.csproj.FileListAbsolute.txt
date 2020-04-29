@@ -41,7 +41,6 @@ C:\Users\moren\Documents\Juegos\ClashRoyal\bin\Debug\ClashRoyal.exe.config
 C:\Users\moren\Documents\Juegos\ClashRoyal\bin\Debug\ClashRoyal.exe
 C:\Users\moren\Documents\Juegos\ClashRoyal\bin\Debug\ClashRoyal.pdb
 C:\Users\moren\Documents\Juegos\ClashRoyal\obj\Debug\ClashRoyal.Properties.Resources.resources
-C:\Users\moren\Documents\Juegos\ClashRoyal\obj\Debug\ClashRoyal.src.views.components.BarraElixir_component.resources
 C:\Users\moren\Documents\Juegos\ClashRoyal\obj\Debug\ClashRoyal.src.views.components.Cartas_component.resources
 C:\Users\moren\Documents\Juegos\ClashRoyal\obj\Debug\ClashRoyal.src.views.components.personaje_component.resources
 C:\Users\moren\Documents\Juegos\ClashRoyal\obj\Debug\ClashRoyal.src.views.options.Creditos_component.resources

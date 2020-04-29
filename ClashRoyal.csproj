@@ -69,12 +69,6 @@
     <Compile Include="src\tools\Objects\Estadistica.cs" />
     <Compile Include="src\tools\Objects\Jugador.cs" />
     <Compile Include="src\tools\Objects\Partida.cs" />
-    <Compile Include="src\views\components\BarraElixir-component.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="src\views\components\BarraElixir-component.Designer.cs">
-      <DependentUpon>BarraElixir-component.cs</DependentUpon>
-    </Compile>
     <Compile Include="src\views\components\Cartas-component.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,9 +145,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="src\views\components\BarraElixir-component.resx">
-      <DependentUpon>BarraElixir-component.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="src\views\components\Cartas-component.resx">
       <DependentUpon>Cartas-component.cs</DependentUpon>
     </EmbeddedResource>
