@@ -82,11 +82,19 @@ namespace ClashRoyal.src.views.pages
         {
             if (e.KeyChar == 13)
             {
-                var nivel = this._inicio.nivel();
-                Juego juego = new Juego(_jugador,nivel);
-                juego.Show();
-                _inicio.pararHilo();
-                this.Dispose();
+                try
+                {
+                    var nivel = this._inicio.nivel();
+                    Juego juego = new Juego(_jugador, nivel);
+                    juego.Show();
+                    _inicio.pararHilo();
+                    this.Dispose();
+                }
+                catch
+                {
+                    MessageBox.Show("Selecione un nivel de dificultad");
+                }
+
             }
         }
     }
